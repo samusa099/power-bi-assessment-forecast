@@ -102,19 +102,17 @@ Some of the major insights from the dashboard include:
 
 Add dashboard screenshot here:
 
-```markdown
+
 <img width="1173" height="658" alt="Screenshot 2026-06-27 171939" src="https://github.com/user-attachments/assets/696e58fe-8b9f-4e1b-b0fd-c42479079cc4" />
 
-```
 
 ## 🔮 Forecasting Preview
 
 Add forecasting screenshot here:
 
-```markdown
+
 <img width="1168" height="659" alt="Screenshot 2026-06-27 171926" src="https://github.com/user-attachments/assets/4df3de9b-dde6-4710-a1d5-2d0c0a2a7606" />
 
-```
 
 ## 🚀 How to Use
 
