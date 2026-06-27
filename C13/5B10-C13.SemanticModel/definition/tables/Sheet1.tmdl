@@ -1,0 +1,215 @@
+table Sheet1
+	lineageTag: 2e125b39-40c6-456b-85f0-bd659b820a2f
+
+	column 'Row ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4fe0eeac-bbdd-4b49-b2c0-586c26e3d2cb
+		summarizeBy: sum
+		sourceColumn: Row ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order ID'
+		dataType: string
+		lineageTag: 55261259-0c44-432f-b96a-496a799b1f42
+		summarizeBy: none
+		sourceColumn: Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9414aa9f-4e32-4a64-9ad0-429319e855c6
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		variation Variation
+			isDefault
+			relationship: eb22ab6b-9d92-4d90-879f-712af44a0bcb
+			defaultHierarchy: LocalDateTable_55ce3f14-4339-45fb-8299-e29331dddb6a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ship Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c4ca64f1-d75a-433b-997f-1ffaf3c928bb
+		summarizeBy: none
+		sourceColumn: Ship Date
+
+		variation Variation
+			isDefault
+			relationship: d563387e-f687-4f34-9c54-fcccd964ac5f
+			defaultHierarchy: LocalDateTable_2e9266fb-f8bd-43e1-a9a8-498852305520.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ship Mode'
+		dataType: string
+		lineageTag: 45f9f72f-c0c9-4b73-bc77-625940bbb70f
+		summarizeBy: none
+		sourceColumn: Ship Mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: d678c7b0-21ba-4338-9e80-9291f2a7afdd
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: a16bbcc1-d2e5-4965-ab29-9ad8e4ea9acb
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: 559d1c56-51f8-4a8a-b367-2b8146f4a939
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: d089852c-c547-4fec-8b69-2682eaf9d361
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: ea5cca4e-c73b-4f0a-9dc7-014d4d8470e5
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 188a84d0-a264-4ea6-a5dc-63700b65a7f3
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: bd16811d-c3ab-421f-be0f-1b2dc9544394
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product ID'
+		dataType: string
+		lineageTag: 94e912b6-4fc9-41c7-8517-25b2d7097b04
+		summarizeBy: none
+		sourceColumn: Product ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 4c29908a-b0a9-44b0-86c6-f78e1c26f518
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sub-Category
+		dataType: string
+		lineageTag: ba973f21-6806-48dd-992f-451b01c7a3e1
+		summarizeBy: none
+		sourceColumn: Sub-Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Name'
+		dataType: string
+		lineageTag: c2d6050d-0394-48e8-8acc-50148b07e2a9
+		summarizeBy: none
+		sourceColumn: Product Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales
+		dataType: double
+		lineageTag: aa561970-45d2-42ae-8ad6-2743c48a3c4a
+		summarizeBy: sum
+		sourceColumn: Sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f4e0ae4-581d-4b8c-8db3-c20f97debaed
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column Profit
+		dataType: double
+		lineageTag: e7a19906-02a2-4673-a8b5-2b273c6c473f
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Returns
+		dataType: string
+		lineageTag: ba0f0276-ff8f-42ee-b08e-c729526b45c2
+		summarizeBy: none
+		sourceColumn: Returns
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Payment Mode'
+		dataType: string
+		lineageTag: d870c0b5-a130-4b2a-93b2-4d3502d229fb
+		summarizeBy: none
+		sourceColumn: Payment Mode
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sheet1 = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Musa PC\Downloads\SuperStore.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "Sheet1", Kind = "Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Row ID+O6G3A1:R6", Int64.Type}, {"Order ID", type text}, {"Order Date", type date}, {"Ship Date", type date}, {"Ship Mode", type text}, {"Customer ID", type text}, {"Customer Name", type text}, {"Segment", type text}, {"Country", type text}, {"City", type text}, {"State", type text}, {"Region", type text}, {"Product ID", type text}, {"Category", type text}, {"Sub-Category", type text}, {"Product Name", type text}, {"Sales", type number}, {"Quantity", Int64.Type}, {"Profit", type number}, {"Returns", type any}, {"Payment Mode", type text}, {"ind1", type any}, {"ind2", type any}}),
+				    #"Replaced Errors" = Table.ReplaceErrorValues(#"Changed Type", {{"Returns", 0}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Replaced Errors",{"ind1", "ind2"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"Row ID+O6G3A1:R6", "Row ID"}}),
+				    #"Inserted Month Name" = Table.AddColumn(#"Renamed Columns", "Month Name", each Date.MonthName([Order Date]), type text),
+				    #"Extracted First Characters" = Table.TransformColumns(#"Inserted Month Name", {{"Month Name", each Text.Start(_, 3), type text}}),
+				    #"Inserted Month" = Table.AddColumn(#"Extracted First Characters", "Month", each Date.Month([Order Date]), Int64.Type),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Inserted Month",{"Month", "Month Name"})
+				in
+				    #"Removed Columns1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

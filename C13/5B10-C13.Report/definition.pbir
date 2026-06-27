@@ -1,0 +1,8 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../5B10-C13.SemanticModel"
+    }
+  }
+}

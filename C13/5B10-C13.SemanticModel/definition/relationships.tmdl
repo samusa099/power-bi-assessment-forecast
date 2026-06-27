@@ -1,0 +1,15 @@
+relationship eb22ab6b-9d92-4d90-879f-712af44a0bcb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Sheet1.'Order Date'
+	toColumn: LocalDateTable_55ce3f14-4339-45fb-8299-e29331dddb6a.Date
+
+relationship d563387e-f687-4f34-9c54-fcccd964ac5f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Sheet1.'Ship Date'
+	toColumn: LocalDateTable_2e9266fb-f8bd-43e1-a9a8-498852305520.Date
+
+relationship eaa5c01f-53a3-49c2-9ffc-2c077550a09a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CalendarTable.Date
+	toColumn: LocalDateTable_7c29c7c2-86bd-4be0-94d0-400967b634a4.Date
+
