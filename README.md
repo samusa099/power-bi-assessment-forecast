@@ -1,141 +1,149 @@
+<div align="center">
+
+<img src="assets/power-bi-sales-forecast-cover.svg" alt="Power BI Sales Dashboard and Forecasting Assessment cover" width="100%" />
+
+<br />
+
 # Power BI Sales Dashboard & Forecasting Assessment
 
-## 📊 Project Overview
+**An interactive business-intelligence project for sales performance analysis, operational insight and time-series forecasting.**
 
-This project is a Power BI dashboard and forecasting assessment created for **Weekly Assessment 13 (5B10-C13)** under the **Data Analytics** course.
+[![Power BI](https://img.shields.io/badge/Microsoft-Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=000000)](https://powerbi.microsoft.com/)
+![Power Query](https://img.shields.io/badge/Power%20Query-1F2937?style=for-the-badge)
+![DAX](https://img.shields.io/badge/DAX-334155?style=for-the-badge)
+![Assessment](https://img.shields.io/badge/Assessment-5B10--C13-2563EB?style=for-the-badge)
 
-The project uses SuperStore sales data to build an interactive business dashboard with sales analysis, category performance, regional insights, payment method analysis, delivery performance, and sales forecasting.
+</div>
 
-## 🎯 Assessment Information
+---
 
-* **Course:** Data Analytics
-* **Assessment:** Weekly Assessment 13 (5B10-C13)
-* **Topic:** Live Project Building Using Power BI
-* **Tool Used:** Microsoft Power BI Desktop
-* **Dataset:** SuperStore Sales Dataset
-* **Submission Format:** PBIX file
+## 📊 Project Snapshot
 
-## 📌 Project Objectives
+| Project Detail | Description |
+|---|---|
+| **Course** | Data Analytics |
+| **Assessment** | Weekly Assessment 13 — `5B10-C13` |
+| **Project Type** | Live Power BI dashboard and forecasting assessment |
+| **Dataset** | SuperStore sales data |
+| **Primary Tool** | Microsoft Power BI Desktop |
+| **Core Skills** | Power Query, DAX, dashboard design and forecast analytics |
 
-The main objectives of this Power BI project are:
+This project transforms historical sales data into a decision-ready Power BI report. It combines executive KPIs, category and regional performance, customer and payment analysis, delivery monitoring, time-based trends and forward-looking sales forecasting.
 
-* Build an interactive sales dashboard
-* Analyze sales by category, sub-category, region, segment, and payment method
-* Visualize state-wise sales using map visualization
-* Track monthly and yearly sales trends
-* Analyze profit trends over time
-* Create a sales forecasting page using Power BI forecasting tools
-* Present business insights in a clean dashboard format
+## 🎯 Business Objectives
 
-## 📁 Repository Contents
+- Build a clear, interactive sales-performance dashboard.
+- Analyze results by **category, sub-category, region, segment and payment method**.
+- visualize state-level sales distribution through map analysis.
+- Track monthly and yearly sales and profit movement.
+- Measure average delivery performance.
+- Apply Power BI forecasting to estimate future sales direction.
+- Present business findings in a clean, portfolio-ready format.
+
+## 🖼️ Report Gallery
+
+<table>
+<tr>
+<td width="50%" align="center">
+<strong>📈 Executive Sales Dashboard</strong><br /><br />
+<img src="https://github.com/user-attachments/assets/696e58fe-8b9f-4e1b-b0fd-c42479079cc4" alt="Executive sales dashboard preview" width="100%" />
+<br /><sub>Sales KPIs, category performance, geographic analysis, segments, payment methods and delivery metrics.</sub>
+</td>
+<td width="50%" align="center">
+<strong>🔮 Sales Forecasting View</strong><br /><br />
+<img src="https://github.com/user-attachments/assets/4df3de9b-dde6-4710-a1d5-2d0c0a2a7606" alt="Power BI sales forecasting preview" width="100%" />
+<br /><sub>Historical sales trend, forecast line, confidence interval and projected future movement.</sub>
+</td>
+</tr>
+</table>
+
+## ✨ Dashboard Capabilities
+
+| Analysis Area | Included Capabilities |
+|---|---|
+| **Executive KPIs** | Total sales, profit indicators and average delivery time |
+| **Product Performance** | Category and sub-category analysis |
+| **Customer View** | Segment-level contribution |
+| **Regional Analysis** | Region comparison and state map visualization |
+| **Order Operations** | Ship mode and delivery-performance analysis |
+| **Payment Analysis** | COD, online and other payment-method contribution |
+| **Trend Analysis** | Monthly and yearly sales and profit movement |
+| **Forecasting** | Forecast line, confidence interval, confidence shading and zoomed outlook |
+
+## 🧹 Data Preparation Workflow
+
+The data was prepared in **Power Query** before visualization:
+
+1. Promoted the first row to column headers.
+2. Corrected corrupted or unclear column names.
+3. Removed unnecessary fields.
+4. Standardized data types.
+5. Cleaned return-status values.
+6. Prepared date fields for trend analysis and forecasting.
+7. Structured the model for interactive Power BI reporting.
+
+## 🔍 Key Findings
+
+> The dashboard converts raw transactional data into a concise management view that supports both retrospective analysis and future planning.
+
+- **Office Supplies** generated the highest sales among the major categories.
+- **Standard Class** was the most frequently used shipping mode.
+- **COD and Online payments** made strong contributions to total sales.
+- Sales performance varied meaningfully across regions and states.
+- Historical patterns supported a forward-looking sales forecast with a confidence range.
+
+## 🧰 Technology Stack
 
 ```text
-.
-├── 5B10-C13.pbix
-├── 5B10-C13.pdf
-├── README.md
-└── screenshots/
-    ├── dashboard-preview.png
-    └── forecasting-preview.png
+Microsoft Power BI Desktop
+├── Power Query — data cleaning and transformation
+├── DAX — analytical measures and calculations
+├── Data Model — relationships and reporting structure
+├── Interactive Visuals — slicers, maps, charts and KPI cards
+└── Forecast Analytics — trend projection and confidence interval
 ```
 
-## 📈 Dashboard Features
+## 📁 Repository Deliverables
 
-The dashboard includes the following Power BI visuals:
+| File Type | Purpose |
+|---|---|
+| `.pbix` | Editable Power BI project and interactive report |
+| `.pdf` | Portable report preview or assessment submission |
+| `README.md` | Project documentation and portfolio presentation |
+| `assets/` | Project cover and supporting visual assets |
 
-* **Total Sales by Sub-Category**
-* **Sales by Category**
-* **Sales by Ship Mode**
-* **Sales by Region**
-* **Sales by Segment**
-* **Sales by Payment Method**
-* **Sales by State Map**
-* **Monthly and Yearly Sales Trend**
-* **Monthly and Yearly Profit Trend**
-* **Average Delivery Time**
-* **Region Slicer**
+## 🚀 How to Explore the Project
 
-## 🔮 Forecasting Features
+1. Clone or download this repository.
+2. Open the `.pbix` project using **Microsoft Power BI Desktop**.
+3. Review the executive dashboard page.
+4. Use slicers and filters to explore specific regions and business segments.
+5. Open the forecasting page to review projected sales and the confidence interval.
+6. Use the PDF version when Power BI Desktop is unavailable.
 
-The forecasting page includes:
+## ✅ Final Output
 
-* Sales trend visualization using Order Date
-* Sum of Sales over time
-* Forecast line
-* Confidence interval
-* Confidence shade
-* Zoomed forecast view
+The completed report includes:
 
-The forecast helps estimate future sales movement based on historical sales patterns.
+- An interactive sales dashboard.
+- A dedicated forecasting page.
+- Business KPI cards and comparative visualizations.
+- Regional, product, customer and operational analysis.
+- Historical sales and profit trends.
+- A forecast view with confidence shading.
 
-## 🛠️ Tools & Technologies
+---
 
-* Microsoft Power BI Desktop
-* Power Query
-* DAX
-* Excel Dataset
-* Data Visualization
-* Forecast Analytics
-
-## 🧹 Data Preparation
-
-The dataset was cleaned and transformed using Power Query. Key preparation steps included:
-
-* Promoted first row as headers
-* Renamed corrupted column names
-* Removed unnecessary columns
-* Fixed data types
-* Cleaned return values
-* Prepared date fields for trend and forecasting analysis
-
-## 📊 Key Insights
-
-Some of the major insights from the dashboard include:
-
-* Office Supplies generated the highest sales among categories.
-* Standard Class was the most used shipping mode.
-* COD and Online payments contributed strongly to total sales.
-* Sales varied across regions and states.
-* Forecasting showed expected future sales trends based on historical performance.
-
-## 📷 Dashboard Preview
-
-Add dashboard screenshot here:
-
-
-<img width="1173" height="658" alt="Screenshot 2026-06-27 171939" src="https://github.com/user-attachments/assets/696e58fe-8b9f-4e1b-b0fd-c42479079cc4" />
-
-
-## 🔮 Forecasting Preview
-
-Add forecasting screenshot here:
-
-
-<img width="1168" height="659" alt="Screenshot 2026-06-27 171926" src="https://github.com/user-attachments/assets/4df3de9b-dde6-4710-a1d5-2d0c0a2a7606" />
-
-
-## 🚀 How to Use
-
-1. Download or clone this repository.
-2. Open the `.pbix` file using Microsoft Power BI Desktop.
-3. Explore the dashboard page for sales insights.
-4. Open the forecasting page to view the sales forecast.
-5. Use slicers and filters to interact with the visuals.
-
-## 📌 Final Output
-
-The final Power BI report contains:
-
-* One complete dashboard page
-* One forecasting page
-* Interactive visuals
-* Sales trend analysis
-* Forecasting output with confidence interval
+<div align="center">
 
 ## 👤 Author
 
-**Siam Ahmad Musa**
+### **Musa**
 
-## 📄 License
+*HR Professional • Data Analytics Practitioner • Power BI Project Builder*
 
-This project is created for academic assessment purposes.
+<br />
+
+**Built as an academic assessment and portfolio demonstration.**
+
+</div>
