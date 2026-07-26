@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/power-bi-sales-forecast-cover.svg" alt="Power BI Sales Dashboard and Forecasting Assessment cover" width="100%" />
+<img src="assets/power-bi-sales-forecast-cover.svg" alt="Power BI Sales Dashboard and Forecasting Assessment cover" width="75%" />
 
 <br />
 
@@ -34,7 +34,7 @@ This project transforms historical sales data into a decision-ready Power BI rep
 
 - Build a clear, interactive sales-performance dashboard.
 - Analyze results by **category, sub-category, region, segment and payment method**.
-- visualize state-level sales distribution through map analysis.
+- Visualize state-level sales distribution through map analysis.
 - Track monthly and yearly sales and profit movement.
 - Measure average delivery performance.
 - Apply Power BI forecasting to estimate future sales direction.
