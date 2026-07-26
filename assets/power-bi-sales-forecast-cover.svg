@@ -1,104 +1,136 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
   <title id="title">Power BI Sales Dashboard and Forecasting Assessment</title>
-  <desc id="desc">Professional portfolio cover for a Power BI sales analytics and forecasting project by Musa.</desc>
+  <desc id="desc">A merged GitHub README and Power BI dashboard portfolio cover by Musa.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#F8FAFC"/>
-      <stop offset="1" stop-color="#E9EEF5"/>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061827"/>
+      <stop offset="0.58" stop-color="#082B30"/>
+      <stop offset="1" stop-color="#07131E"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#F2C811"/>
-      <stop offset="1" stop-color="#E9A900"/>
+    <linearGradient id="green" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#16A36A"/>
+      <stop offset="1" stop-color="#73E0A4"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#0F172A" flood-opacity="0.14"/>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2DD4BF"/>
+      <stop offset="1" stop-color="#0EA5A8"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F3F7F8"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#001018" flood-opacity="0.28"/>
     </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="42"/>
+    </filter>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#5EE1B6" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
   </defs>
 
-  <rect width="1600" height="900" fill="url(#bg)"/>
-  <circle cx="1480" cy="70" r="240" fill="#F2C811" opacity="0.10"/>
-  <circle cx="80" cy="850" r="210" fill="#2563EB" opacity="0.06"/>
+  <rect width="1600" height="900" rx="34" fill="url(#hero)"/>
+  <rect width="1600" height="555" rx="34" fill="url(#grid)"/>
+  <circle cx="1280" cy="180" r="210" fill="#15B77C" opacity="0.08" filter="url(#soft)"/>
+  <circle cx="290" cy="410" r="180" fill="#16C7B0" opacity="0.07" filter="url(#soft)"/>
 
-  <g transform="translate(110 110)">
-    <rect x="0" y="0" width="132" height="44" rx="22" fill="#0F172A"/>
-    <text x="66" y="29" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">5B10-C13</text>
-
-    <text x="0" y="125" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#E2A600" letter-spacing="2">POWER BI PORTFOLIO PROJECT</text>
-    <text x="0" y="215" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800" fill="#0F172A">Sales Dashboard</text>
-    <text x="0" y="300" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800" fill="#0F172A">&amp; Forecasting</text>
-
-    <text x="0" y="365" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#475569">Interactive business intelligence, trend analysis,</text>
-    <text x="0" y="405" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#475569">regional performance and forward-looking sales insight.</text>
-
-    <g transform="translate(0 485)">
-      <rect width="178" height="54" rx="27" fill="#FFFFFF" stroke="#CBD5E1"/>
-      <text x="89" y="35" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#334155">Power Query</text>
-      <rect x="194" width="102" height="54" rx="27" fill="#FFFFFF" stroke="#CBD5E1"/>
-      <text x="245" y="35" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#334155">DAX</text>
-      <rect x="312" width="196" height="54" rx="27" fill="#FFFFFF" stroke="#CBD5E1"/>
-      <text x="410" y="35" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#334155">Sales Analytics</text>
-    </g>
-
-    <g transform="translate(0 650)">
-      <rect width="10" height="70" rx="5" fill="url(#accent)"/>
-      <text x="32" y="28" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#64748B">Designed &amp; developed by</text>
-      <text x="32" y="62" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" fill="#0F172A">Musa</text>
-    </g>
+  <g fill="none" stroke-linecap="round">
+    <path d="M-40 420 C180 315 340 505 555 395 S920 260 1120 360 S1420 495 1660 330" stroke="#26D49C" stroke-opacity="0.25" stroke-width="3"/>
+    <path d="M-40 438 C190 340 345 525 570 418 S930 295 1135 385 S1430 520 1660 350" stroke="#62E8BA" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M-40 456 C205 365 355 545 590 440 S945 330 1150 410 S1440 545 1660 375" stroke="#22B8A9" stroke-opacity="0.12" stroke-width="2"/>
   </g>
 
-  <g transform="translate(900 120)" filter="url(#shadow)">
-    <rect width="580" height="650" rx="34" fill="#FFFFFF"/>
-    <rect x="0" y="0" width="580" height="78" rx="34" fill="#0F172A"/>
-    <rect x="0" y="45" width="580" height="33" fill="#0F172A"/>
-    <circle cx="40" cy="39" r="9" fill="#F2C811"/>
-    <circle cx="68" cy="39" r="9" fill="#64748B"/>
-    <circle cx="96" cy="39" r="9" fill="#64748B"/>
-    <text x="140" y="47" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF">Executive Sales Overview</text>
+  <g transform="translate(78 68)" filter="url(#shadow)">
+    <rect x="0" y="58" width="32" height="72" rx="8" fill="#20A56B"/>
+    <rect x="40" y="30" width="32" height="100" rx="8" fill="#35BF7C"/>
+    <rect x="80" y="0" width="32" height="130" rx="8" fill="url(#green)"/>
+  </g>
 
-    <g transform="translate(34 110)">
-      <rect width="154" height="102" rx="18" fill="#F8FAFC" stroke="#E2E8F0"/>
-      <text x="18" y="34" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#64748B">Total Sales</text>
-      <text x="18" y="75" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800" fill="#0F172A">$1.57M</text>
-      <rect x="170" width="154" height="102" rx="18" fill="#F8FAFC" stroke="#E2E8F0"/>
-      <text x="188" y="34" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#64748B">Profit</text>
-      <text x="188" y="75" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800" fill="#0F172A">$175K</text>
-      <rect x="340" width="172" height="102" rx="18" fill="#FFF9D8" stroke="#F2C811"/>
-      <text x="358" y="34" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#806A00">Avg. Delivery</text>
-      <text x="358" y="75" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800" fill="#0F172A">4 Days</text>
+  <text x="220" y="135" fill="#FFFFFF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="84" font-weight="800" letter-spacing="2">POWER <tspan fill="#5BDA94">BI</tspan></text>
+  <text x="220" y="195" fill="#E8F5F1" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="37" font-weight="700" letter-spacing="9">ASSESSMENT FORECAST</text>
+  <rect x="220" y="221" width="515" height="3" rx="2" fill="url(#green)"/>
+  <text x="80" y="286" fill="#DDEEE9" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" font-weight="500">Sales performance analysis, operational insight and time-series forecasting</text>
+
+  <g font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">
+    <g transform="translate(80 320)"><rect width="178" height="44" rx="22" fill="#0E513F" stroke="#4DD49A"/><text x="22" y="29" fill="#E9FFF6">↗ SALES FORECAST</text></g>
+    <g transform="translate(272 320)"><rect width="202" height="44" rx="22" fill="#0C4243" stroke="#3BD7C5"/><text x="22" y="29" fill="#E9FFFC">◉ PERFORMANCE</text></g>
+    <g transform="translate(488 320)"><rect width="221" height="44" rx="22" fill="#173C45" stroke="#5BC7D9"/><text x="22" y="29" fill="#EAFBFF">✦ DECISION SUPPORT</text></g>
+  </g>
+
+  <text x="80" y="416" fill="#FFFFFF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" font-weight="700">From historical transactions to forward-looking business decisions.</text>
+  <text x="80" y="457" fill="#AAC9C2" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20">Interactive Power BI dashboards • Power Query • DAX • Forecast analytics</text>
+
+  <g transform="translate(80 485)">
+    <circle cx="29" cy="29" r="29" fill="#0B3C32" stroke="#5EE2A7" stroke-width="2"/>
+    <text x="29" y="38" text-anchor="middle" fill="#74E0A6" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" font-weight="800">M</text>
+    <text x="76" y="24" fill="#FFFFFF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" font-weight="800">MUSA</text>
+    <text x="76" y="49" fill="#9FD3C3" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15">HR Professional • Data Analytics Practitioner</text>
+  </g>
+
+  <g transform="translate(825 58)" filter="url(#shadow)">
+    <path d="M75 0 H645 Q670 0 670 25 V410 H50 V25 Q50 0 75 0Z" fill="#0B111B" stroke="#4E847B" stroke-width="2"/>
+    <rect x="72" y="28" width="576" height="354" rx="14" fill="#071C28"/>
+    <rect x="94" y="50" width="532" height="38" rx="9" fill="#0D2C36"/>
+    <circle cx="116" cy="69" r="5" fill="#52DA9C"/><circle cx="134" cy="69" r="5" fill="#2DB7AE"/><circle cx="152" cy="69" r="5" fill="#E8C64A"/>
+    <text x="180" y="75" fill="#DDF5EF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" font-weight="700">Executive Sales &amp; Forecast Overview</text>
+
+    <g font-family="Inter,Segoe UI,Arial,sans-serif">
+      <g transform="translate(94 105)"><rect width="118" height="66" rx="10" fill="#103746"/><text x="14" y="25" fill="#80DBBE" font-size="12">SALES</text><text x="14" y="50" fill="#FFFFFF" font-size="19" font-weight="800">PERFORMANCE</text></g>
+      <g transform="translate(222 105)"><rect width="118" height="66" rx="10" fill="#103746"/><text x="14" y="25" fill="#80DBBE" font-size="12">PROFIT</text><text x="14" y="50" fill="#FFFFFF" font-size="19" font-weight="800">TREND</text></g>
+      <g transform="translate(350 105)"><rect width="118" height="66" rx="10" fill="#103746"/><text x="14" y="25" fill="#80DBBE" font-size="12">DELIVERY</text><text x="14" y="50" fill="#FFFFFF" font-size="19" font-weight="800">EFFICIENCY</text></g>
+      <g transform="translate(478 105)"><rect width="148" height="66" rx="10" fill="#12453F"/><text x="14" y="25" fill="#8CE8B6" font-size="12">FORECAST</text><text x="14" y="50" fill="#FFFFFF" font-size="19" font-weight="800">OUTLOOK</text></g>
     </g>
 
-    <g transform="translate(34 238)">
-      <rect width="326" height="220" rx="20" fill="#F8FAFC" stroke="#E2E8F0"/>
-      <text x="20" y="34" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#334155">Monthly Sales Trend</text>
-      <line x1="34" y1="178" x2="298" y2="178" stroke="#CBD5E1" stroke-width="2"/>
-      <line x1="34" y1="70" x2="34" y2="178" stroke="#CBD5E1" stroke-width="2"/>
-      <polyline points="34,158 72,140 110,146 148,108 186,119 224,82 262,95 298,54" fill="none" stroke="#F2C811" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-      <g fill="#0F172A">
-        <circle cx="34" cy="158" r="5"/><circle cx="72" cy="140" r="5"/><circle cx="110" cy="146" r="5"/><circle cx="148" cy="108" r="5"/><circle cx="186" cy="119" r="5"/><circle cx="224" cy="82" r="5"/><circle cx="262" cy="95" r="5"/><circle cx="298" cy="54" r="5"/>
+    <g transform="translate(94 190)">
+      <rect width="330" height="165" rx="12" fill="#0B2B37"/>
+      <text x="16" y="27" fill="#DDF5EF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="700">Sales Trend &amp; Forecast</text>
+      <g stroke="#B5D6D0" stroke-opacity="0.12"><path d="M25 50H307M25 83H307M25 116H307M25 149H307"/><path d="M65 40V149M115 40V149M165 40V149M215 40V149M265 40V149"/></g>
+      <path d="M26 132 L58 119 L88 126 L120 92 L150 103 L181 70 L212 85 L244 51 L276 65 L307 38" fill="none" stroke="#38D6BF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M212 85 L244 51 L276 65 L307 38 L307 80 L276 95 L244 82 L212 110Z" fill="#38D6BF" opacity="0.15"/>
+      <g fill="#72E5C6"><circle cx="120" cy="92" r="4"/><circle cx="181" cy="70" r="4"/><circle cx="244" cy="51" r="4"/><circle cx="307" cy="38" r="4"/></g>
+    </g>
+
+    <g transform="translate(438 190)">
+      <rect width="188" height="165" rx="12" fill="#0B2B37"/>
+      <text x="14" y="27" fill="#DDF5EF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="700">Category Mix</text>
+      <circle cx="60" cy="87" r="34" fill="none" stroke="#173D49" stroke-width="16"/>
+      <circle cx="60" cy="87" r="34" fill="none" stroke="#36D3B5" stroke-width="16" stroke-dasharray="92 122" transform="rotate(-90 60 87)"/>
+      <circle cx="60" cy="87" r="34" fill="none" stroke="#E2B93B" stroke-width="16" stroke-dasharray="45 169" stroke-dashoffset="-92" transform="rotate(-90 60 87)"/>
+      <g fill="#CFEAE3" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="10"><text x="108" y="69">Office Supplies</text><text x="108" y="91">Technology</text><text x="108" y="113">Furniture</text></g>
+      <g><rect x="95" y="59" width="8" height="8" rx="2" fill="#36D3B5"/><rect x="95" y="81" width="8" height="8" rx="2" fill="#E2B93B"/><rect x="95" y="103" width="8" height="8" rx="2" fill="#2A7183"/></g>
+    </g>
+
+    <path d="M0 410 H720 L668 454 H52 Z" fill="#101923" stroke="#344D55"/>
+    <rect x="295" y="420" width="130" height="12" rx="6" fill="#253A41"/>
+  </g>
+
+  <g transform="translate(42 580)" filter="url(#shadow)">
+    <rect width="1516" height="278" rx="25" fill="url(#panel)"/>
+    <rect x="0" y="0" width="1516" height="9" rx="5" fill="url(#green)"/>
+
+    <g transform="translate(34 34)">
+      <rect width="235" height="194" rx="18" fill="#EDF8F3" stroke="#CAE8DC"/>
+      <text x="24" y="38" fill="#0E694A" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="800">README NAVIGATION</text>
+      <g fill="#335B51" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15"><text x="24" y="76">⌂  Project Overview</text><text x="24" y="107">✦  Key Features</text><text x="24" y="138">▣  Report Gallery</text><text x="24" y="169">◫  How to Use</text></g>
+    </g>
+
+    <g transform="translate(295 34)">
+      <text x="0" y="31" fill="#173B35" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="27" font-weight="800">Power BI Assessment Forecast</text>
+      <text x="0" y="59" fill="#55726B" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15">A clean, portfolio-ready README experience with business context and visual reporting.</text>
+
+      <g transform="translate(0 82)" font-family="Inter,Segoe UI,Arial,sans-serif">
+        <g><rect width="205" height="111" rx="15" fill="#FFFFFF" stroke="#D8E6E1"/><circle cx="31" cy="31" r="17" fill="#E2F7EC"/><text x="31" y="37" text-anchor="middle" fill="#0B7A50" font-size="19">↗</text><text x="58" y="29" fill="#18443A" font-size="15" font-weight="800">Sales Forecasting</text><text x="20" y="63" fill="#657D77" font-size="12">Historical trends and</text><text x="20" y="82" fill="#657D77" font-size="12">future sales direction.</text></g>
+        <g transform="translate(220 0)"><rect width="205" height="111" rx="15" fill="#FFFFFF" stroke="#D8E6E1"/><circle cx="31" cy="31" r="17" fill="#E5F8F6"/><text x="31" y="37" text-anchor="middle" fill="#07867C" font-size="18">▦</text><text x="58" y="29" fill="#18443A" font-size="15" font-weight="800">Interactive Dashboard</text><text x="20" y="63" fill="#657D77" font-size="12">Slicers, KPI cards and</text><text x="20" y="82" fill="#657D77" font-size="12">decision-ready visuals.</text></g>
+        <g transform="translate(440 0)"><rect width="205" height="111" rx="15" fill="#FFFFFF" stroke="#D8E6E1"/><circle cx="31" cy="31" r="17" fill="#EAF3FF"/><text x="31" y="37" text-anchor="middle" fill="#3078C7" font-size="18">◎</text><text x="58" y="29" fill="#18443A" font-size="15" font-weight="800">Performance Analysis</text><text x="20" y="63" fill="#657D77" font-size="12">Products, regions, segments</text><text x="20" y="82" fill="#657D77" font-size="12">and operational results.</text></g>
+        <g transform="translate(660 0)"><rect width="205" height="111" rx="15" fill="#FFFFFF" stroke="#D8E6E1"/><circle cx="31" cy="31" r="17" fill="#FFF6D8"/><text x="31" y="37" text-anchor="middle" fill="#B88900" font-size="18">✦</text><text x="58" y="29" fill="#18443A" font-size="15" font-weight="800">Business Insights</text><text x="20" y="63" fill="#657D77" font-size="12">Clear findings for better</text><text x="20" y="82" fill="#657D77" font-size="12">planning and decisions.</text></g>
       </g>
     </g>
 
-    <g transform="translate(378 238)">
-      <rect width="168" height="220" rx="20" fill="#0F172A"/>
-      <text x="20" y="36" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">By Region</text>
-      <rect x="20" y="68" width="104" height="18" rx="9" fill="#334155"/>
-      <rect x="20" y="68" width="86" height="18" rx="9" fill="#F2C811"/>
-      <rect x="20" y="103" width="104" height="18" rx="9" fill="#334155"/>
-      <rect x="20" y="103" width="70" height="18" rx="9" fill="#E2A600"/>
-      <rect x="20" y="138" width="104" height="18" rx="9" fill="#334155"/>
-      <rect x="20" y="138" width="58" height="18" rx="9" fill="#94A3B8"/>
-      <rect x="20" y="173" width="104" height="18" rx="9" fill="#334155"/>
-      <rect x="20" y="173" width="42" height="18" rx="9" fill="#64748B"/>
-    </g>
-
-    <g transform="translate(34 484)">
-      <rect width="512" height="132" rx="20" fill="#FFFDF1" stroke="#F2C811"/>
-      <text x="20" y="36" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#334155">Forecast Outlook</text>
-      <path d="M22 98 C90 92, 104 62, 158 70 S244 106, 294 72 S388 40, 488 57" fill="none" stroke="#0F172A" stroke-width="5" stroke-linecap="round"/>
-      <path d="M294 72 C350 51, 412 44, 488 57" fill="none" stroke="#F2C811" stroke-width="8" stroke-linecap="round" stroke-dasharray="12 12"/>
-      <path d="M294 52 C360 25, 425 25, 488 37 L488 80 C425 69, 360 75, 294 94 Z" fill="#F2C811" opacity="0.18"/>
+    <g transform="translate(1190 34)">
+      <rect width="292" height="194" rx="18" fill="#0C3E38"/>
+      <text x="24" y="38" fill="#76E2B0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="800">TECHNOLOGY STACK</text>
+      <g fill="#F2FFFA" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15"><text x="24" y="78">▰  Microsoft Power BI</text><text x="24" y="111">ƒx  DAX Measures</text><text x="24" y="144">⌁  Power Query</text><text x="24" y="177">↗  Forecast Analytics</text></g>
     </g>
   </g>
-
-  <text x="1490" y="850" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#94A3B8">Business Intelligence • Data Visualization • Forecast Analytics</text>
 </svg>
