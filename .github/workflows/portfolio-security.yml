@@ -1,0 +1,97 @@
+name: Portfolio Security
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@bfe8cc55a7890e3d6672eda6460ef37bfcc70755
+        with: {fetch-depth: 0, persist-credentials: false}
+      - name: Validate paths, XLSX, notebooks and CSV
+        shell: bash
+        run: |
+          python - <<'PY'
+          import csv,json,os,re,subprocess,sys,zipfile
+          from pathlib import Path,PurePosixPath
+          root=Path.cwd().resolve(); base=os.environ.get('GITHUB_BASE_REF','')
+          if os.environ.get('GITHUB_EVENT_NAME')=='pull_request' and base:
+              subprocess.run(['git','fetch','origin',base,'--depth=1'],check=True)
+              raw=subprocess.check_output(['git','diff','--name-only','-z',f'origin/{base}...HEAD'])
+          else: raw=subprocess.check_output(['git','ls-files','-z'])
+          files=[x.decode() for x in raw.split(b'\0') if x]; errors=[]
+          def bad(p,m): errors.append(f'{p}: {m}')
+          for rel in files:
+              pp=PurePosixPath(rel)
+              if pp.is_absolute() or '..' in pp.parts or '\\' in rel: bad(rel,'unsafe path'); continue
+              p=root/rel
+              try: p.resolve(strict=False).relative_to(root)
+              except Exception: bad(rel,'path escapes repository'); continue
+              if p.is_symlink():
+                  try: p.resolve(strict=True).relative_to(root)
+                  except Exception: bad(rel,'symlink escapes repository')
+              if not p.is_file(): continue
+              s=p.suffix.lower()
+              if s in {'.xlsx','.xlsm','.xltx','.xltm'}:
+                  try:
+                      with zipfile.ZipFile(p) as z:
+                          u=c=0
+                          for i in z.infolist():
+                              q=PurePosixPath(i.filename)
+                              if q.is_absolute() or '..' in q.parts or '\\' in i.filename: bad(rel,f'unsafe archive member {i.filename}')
+                              u+=i.file_size; c+=max(i.compress_size,1)
+                          if u>1_000_000_000 or u/max(c,1)>200: bad(rel,'suspicious XLSX expansion')
+                  except zipfile.BadZipFile: bad(rel,'invalid XLSX archive')
+              elif s=='.ipynb':
+                  try:
+                      nb=json.loads(p.read_text(encoding='utf-8'))
+                      if nb.get('nbformat',0)<4: bad(rel,'notebook must be v4+')
+                      for n,cell in enumerate(nb.get('cells',[]),1):
+                          if cell.get('cell_type')=='code':
+                              if cell.get('outputs'): bad(rel,f'cell {n} has outputs')
+                              if cell.get('execution_count') is not None: bad(rel,f'cell {n} has execution count')
+                              if re.search(r'(^|\n)\s*[!%](curl|wget|pip\s+install\s+https?://)',''.join(cell.get('source',[])),re.I): bad(rel,f'cell {n} downloads remote code')
+                  except Exception as e: bad(rel,f'invalid notebook: {e}')
+              elif s=='.csv':
+                  try:
+                      with p.open('r',encoding='utf-8-sig',newline='',errors='strict') as f:
+                          for r,row in enumerate(csv.reader(f),1):
+                              for c,v0 in enumerate(row,1):
+                                  v=v0.lstrip()
+                                  if v.startswith(('=','+','@')) or (v.startswith('-') and not re.fullmatch(r'-?\d+(\.\d+)?',v)): bad(rel,f'formula injection risk row {r}, column {c}')
+                  except Exception as e: bad(rel,f'CSV parse error: {e}')
+          if errors: print('\n'.join(f'::error::{e}' for e in errors)); sys.exit(1)
+          PY
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@bfe8cc55a7890e3d6672eda6460ef37bfcc70755
+        with: {fetch-depth: 0, persist-credentials: false}
+      - uses: gitleaks/gitleaks-action@bcfb9cce635345aac9996cedc19b2de8e01b894f
+        env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@bfe8cc55a7890e3d6672eda6460ef37bfcc70755
+        with: {persist-credentials: false}
+      - shell: bash
+        run: |
+          set -euo pipefail
+          if find . -name 'requirements*.txt' -o -name 'pyproject.toml' -o -name 'Pipfile.lock' | grep -q .; then python -m pip install --disable-pip-version-check 'pip-audit==2.9.0'; python -m pip_audit; fi
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then npm audit --audit-level=high; fi
+  codeql:
+    permissions: {contents: read, security-events: write, packages: read}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@bfe8cc55a7890e3d6672eda6460ef37bfcc70755
+        with: {persist-credentials: false}
+      - uses: github/codeql-action/init@18420e3271f74589575af831a523c833acda327f
+        with: {languages: python, build-mode: none}
+      - uses: github/codeql-action/analyze@18420e3271f74589575af831a523c833acda327f
