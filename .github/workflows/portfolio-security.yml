@@ -1,16 +1,20 @@
 name: Portfolio Security
+
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   pull_request:
   workflow_dispatch:
   schedule:
     - cron: '17 3 * * 1'
+
 permissions:
   contents: read
+
 concurrency:
   group: security-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   validate:
     name: Secrets, dependencies and data safety
@@ -18,89 +22,182 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with: {fetch-depth: 0, persist-credentials: false}
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
       - name: Repository and data-file policy
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          from pathlib import Path
-          import csv,json,re,sys,zipfile
-          root=Path('.').resolve(); errors=[]
-          blocked={'.env','id_rsa','id_dsa','credentials.json','service-account.json'}
-          executable={'.exe','.dll','.scr','.bat','.cmd','.com','.msi','.ps1','.jar','.apk','.dmg','.iso'}
+          from pathlib import Path, PurePosixPath
+          import csv, json, re, sys, zipfile
+
+          root = Path('.').resolve()
+          errors = []
+          blocked = {'.env', 'id_rsa', 'id_dsa', 'credentials.json', 'service-account.json'}
+          executable = {'.exe', '.dll', '.scr', '.bat', '.cmd', '.com', '.msi', '.ps1', '.jar', '.apk', '.dmg', '.iso'}
+
           for p in Path('.').rglob('*'):
-            if '.git' in p.parts or not p.is_file(): continue
-            try: p.resolve().relative_to(root)
-            except ValueError: errors.append(f'Path escapes repository: {p}')
-            if p.name.lower() in blocked or p.suffix.lower() in executable: errors.append(f'Blocked file: {p}')
-            if p.is_symlink():
-              try: p.resolve(strict=True).relative_to(root)
-              except Exception: errors.append(f'Unsafe symlink: {p}')
-          for p in Path('.').rglob('*.xlsx'):
-            try:
-              with zipfile.ZipFile(p) as z:
-                names=z.namelist()
-                if '[Content_Types].xml' not in names or 'xl/workbook.xml' not in names: errors.append(f'Invalid XLSX: {p}')
-                for n in names:
-                  if n.startswith(('/','\\')) or '..' in Path(n).parts: errors.append(f'XLSX path traversal: {p}:{n}')
-                  if z.getinfo(n).file_size > 200_000_000: errors.append(f'Oversized XLSX member: {p}:{n}')
-            except Exception as e: errors.append(f'Unreadable XLSX {p}: {e}')
+              if '.git' in p.parts or not p.is_file():
+                  continue
+              try:
+                  p.resolve().relative_to(root)
+              except ValueError:
+                  errors.append(f'Path escapes repository: {p}')
+              if p.name.lower() in blocked or p.suffix.lower() in executable:
+                  errors.append(f'Blocked file: {p}')
+              if p.is_symlink():
+                  try:
+                      p.resolve(strict=True).relative_to(root)
+                  except Exception:
+                      errors.append(f'Unsafe symlink: {p}')
+
+          for p in Path('.').rglob('*'):
+              if not p.is_file() or p.suffix.lower() not in {'.xlsx', '.xlsm', '.xltx', '.xltm'}:
+                  continue
+              try:
+                  with zipfile.ZipFile(p) as z:
+                      names = z.namelist()
+                      if '[Content_Types].xml' not in names or 'xl/workbook.xml' not in names:
+                          errors.append(f'Invalid Excel archive: {p}')
+                      uncompressed = 0
+                      compressed = 0
+                      for item in z.infolist():
+                          member = PurePosixPath(item.filename)
+                          if member.is_absolute() or '..' in member.parts or '\\' in item.filename:
+                              errors.append(f'Archive path traversal: {p}:{item.filename}')
+                          uncompressed += item.file_size
+                          compressed += max(item.compress_size, 1)
+                      if uncompressed > 1_000_000_000 or uncompressed / max(compressed, 1) > 200:
+                          errors.append(f'Suspicious archive expansion: {p}')
+              except (OSError, zipfile.BadZipFile) as exc:
+                  errors.append(f'Unreadable Excel archive {p}: {exc}')
+
           for p in Path('.').rglob('*.ipynb'):
-            try: nb=json.loads(p.read_text(encoding='utf-8'))
-            except Exception as e: errors.append(f'Invalid notebook {p}: {e}'); continue
-            for i,c in enumerate(nb.get('cells',[])):
-              if c.get('cell_type')!='code': continue
-              src=''.join(c.get('source',[])).lower()
-              if any(x in src for x in ('curl | sh','wget | sh','rm -rf /','subprocess.popen','os.system(')): errors.append(f'Unsafe notebook command: {p} cell {i}')
-              if c.get('outputs') or c.get('execution_count') is not None: errors.append(f'Notebook outputs/execution count must be cleared: {p} cell {i}')
+              try:
+                  notebook = json.loads(p.read_text(encoding='utf-8'))
+              except Exception as exc:
+                  errors.append(f'Invalid notebook {p}: {exc}')
+                  continue
+              if notebook.get('nbformat', 0) < 4:
+                  errors.append(f'Notebook must use nbformat 4 or newer: {p}')
+              for index, cell in enumerate(notebook.get('cells', []), 1):
+                  if cell.get('cell_type') != 'code':
+                      continue
+                  source = ''.join(cell.get('source', []))
+                  if cell.get('outputs') or cell.get('execution_count') is not None:
+                      errors.append(f'Notebook outputs/execution count must be cleared: {p} cell {index}')
+                  if re.search(r'(^|\n)\s*[!%](curl|wget|pip\s+install\s+https?://)', source, re.I):
+                      errors.append(f'Notebook downloads remote code: {p} cell {index}')
+                  if re.search(r'\b(api[_-]?key|password|secret|token)\s*=', source, re.I):
+                      errors.append(f'Possible credential assignment: {p} cell {index}')
+
           for p in Path('.').rglob('*.csv'):
-            try:
-              with p.open(encoding='utf-8-sig',newline='',errors='replace') as f:
-                for r,row in enumerate(csv.reader(f),1):
-                  for c,v in enumerate(row,1):
-                    if v.lstrip().startswith(('=','+','-','@','\t','\r')): errors.append(f'CSV formula injection risk: {p}:{r}:{c}')
-            except OSError as e: errors.append(f'Unreadable CSV {p}: {e}')
-          action=re.compile(r'^\s*uses:\s*[^\s@]+@([^\s#]+)',re.M)
-          for p in Path('.github/workflows').glob('*.y*ml'):
-            for ref in action.findall(p.read_text(encoding='utf-8')):
-              if not re.fullmatch(r'[0-9a-fA-F]{40}',ref): errors.append(f'Non-immutable action reference in {p}: @{ref}')
-          if errors: print('\n'.join(errors)); sys.exit(1)
+              try:
+                  with p.open(encoding='utf-8-sig', newline='', errors='strict') as handle:
+                      for row_number, row in enumerate(csv.reader(handle), 1):
+                          for column_number, original in enumerate(row, 1):
+                              value = original.lstrip()
+                              unsafe = value.startswith(('=', '+', '@', '\t', '\r'))
+                              unsafe = unsafe or (value.startswith('-') and not re.fullmatch(r'-?\d+(\.\d+)?', value))
+                              if unsafe:
+                                  errors.append(f'CSV formula injection risk: {p}:{row_number}:{column_number}')
+              except (OSError, UnicodeError, csv.Error) as exc:
+                  errors.append(f'Unreadable CSV {p}: {exc}')
+
+          action = re.compile(r'^\s*uses:\s*[^\s@]+@([^\s#]+)', re.M)
+          for workflow in Path('.github/workflows').glob('*.y*ml'):
+              for ref in action.findall(workflow.read_text(encoding='utf-8')):
+                  if not re.fullmatch(r'[0-9a-fA-F]{40}', ref):
+                      errors.append(f'Non-immutable action reference in {workflow}: @{ref}')
+
+          if errors:
+              print('\n'.join(f'::error::{error}' for error in errors))
+              sys.exit(1)
           PY
+
       - name: Gitleaks
-        env: {VERSION: 8.30.1, SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb}
+        env:
+          VERSION: 8.30.1
+          SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
         run: |
           set -euo pipefail
-          curl --proto '=https' --tlsv1.2 -fsSLo /tmp/gitleaks.tgz "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz"
+          curl --proto '=https' --tlsv1.2 -fsSLo /tmp/gitleaks.tgz \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz"
           echo "${SHA256}  /tmp/gitleaks.tgz" | sha256sum -c -
           tar -xzf /tmp/gitleaks.tgz -C /tmp gitleaks
           /tmp/gitleaks git --redact --no-banner .
+
       - name: Dependency audit
         run: |
           set -euo pipefail
           if find . -name 'requirements*.txt' -not -path './.git/*' | grep -q .; then
             python3 -m pip install --disable-pip-version-check pip-audit==2.9.0
-            while IFS= read -r f; do python3 -m pip_audit -r "$f"; done < <(find . -name 'requirements*.txt' -not -path './.git/*')
+            while IFS= read -r file; do python3 -m pip_audit -r "$file"; done < <(find . -name 'requirements*.txt' -not -path './.git/*')
           fi
           [ ! -f package-lock.json ] || npm audit --audit-level=high
           [ ! -f npm-shrinkwrap.json ] || npm audit --audit-level=high
+
   dependency-review:
+    name: Dependency review
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    permissions: {contents: read}
+    permissions:
+      contents: read
     steps:
       - uses: actions/dependency-review-action@05fe4576374b728f0c523d6a13d64c25081e0803 # v4.8.3
-        with: {fail-on-severity: high}
-  codeql:
+        with:
+          fail-on-severity: high
+
+  detect-code:
+    name: Detect CodeQL languages
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    permissions: {contents: read, security-events: write}
-    strategy:
-      fail-fast: false
-      matrix: {language: [python, javascript-typescript]}
+    outputs:
+      has-code: ${{ steps.detect.outputs.has-code }}
+      matrix: ${{ steps.detect.outputs.matrix }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with: {persist-credentials: false}
+        with:
+          persist-credentials: false
+      - id: detect
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          ignored = {'.git', 'node_modules', '.venv', 'venv'}
+          files = [p for p in Path('.').rglob('*') if p.is_file() and not ignored.intersection(p.parts)]
+          languages = []
+          if any(p.suffix == '.py' for p in files):
+              languages.append('python')
+          if any(p.suffix.lower() in {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'} for p in files):
+              languages.append('javascript-typescript')
+          with open(Path(__import__('os').environ['GITHUB_OUTPUT']), 'a', encoding='utf-8') as output:
+              output.write(f"has-code={'true' if languages else 'false'}\n")
+              output.write(f"matrix={json.dumps({'language': languages}, separators=(',', ':'))}\n")
+          PY
+
+  codeql:
+    name: CodeQL (${{ matrix.language }})
+    needs: detect-code
+    if: needs.detect-code.outputs.has-code == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.detect-code.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
       - uses: github/codeql-action/init@4187e74d05793876e9989daffde9c3e66b4acd07 # v3.37.3
-        with: {languages: '${{ matrix.language }}', queries: security-extended}
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-extended
       - uses: github/codeql-action/analyze@4187e74d05793876e9989daffde9c3e66b4acd07 # v3.37.3
