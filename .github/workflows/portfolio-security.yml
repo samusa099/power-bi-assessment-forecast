@@ -103,8 +103,26 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
-      - uses: github/codeql-action/init@4187e74d05793876e9989daffde9c3e66b4acd07
+      - name: Detect analyzable Python source
+        id: detect-python
+        shell: bash
+        run: |
+          if find . -type f -name '*.py' -not -path './.git/*' -print -quit | grep -q .; then
+            echo "python=true" >> "$GITHUB_OUTPUT"
+            echo "Python source detected; CodeQL analysis will run."
+          else
+            echo "python=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::No Python source files detected; CodeQL Python analysis is not applicable."
+          fi
+      - name: Initialize CodeQL
+        if: steps.detect-python.outputs.python == 'true'
+        uses: github/codeql-action/init@4187e74d05793876e9989daffde9c3e66b4acd07
         with:
           languages: python
           queries: security-extended
-      - uses: github/codeql-action/analyze@4187e74d05793876e9989daffde9c3e66b4acd07
+      - name: Analyze with CodeQL
+        if: steps.detect-python.outputs.python == 'true'
+        uses: github/codeql-action/analyze@4187e74d05793876e9989daffde9c3e66b4acd07
+      - name: Record CodeQL applicability
+        if: steps.detect-python.outputs.python != 'true'
+        run: echo "CodeQL Python scan skipped because this portfolio repository contains no .py source files."
